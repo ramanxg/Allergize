@@ -12,7 +12,7 @@ router.get('/getFoods', function(req, res, next) {
             let data = response.outputs[0].data.concepts;
             let confidentFoods = [];
             data.forEach(function (item, index) {
-                if(item.value > .9)
+                if(item.value > .6)
                     confidentFoods.push(item.name);
             });
             res.send(confidentFoods);
@@ -22,5 +22,14 @@ router.get('/getFoods', function(req, res, next) {
         }
     );
 });
+
+function findIngredients(foodItem)
+{
+    let apiKey = 'd734ac52a83e44a9bf4d6b99186c1cbd';
+    let searchUrl = `https://api.spoonacular.com/recipes/search?apiKey=${apiKey}&query=${foodItem}`;
+    // get ID of search result
+    let id = 0;
+    let ingredientUrl = `https://api.spoonacular.com/recipes/${id}/information`
+}
 
 module.exports = router;
