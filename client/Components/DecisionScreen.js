@@ -1,9 +1,15 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground} from 'react-native';
+import { FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome, Foundation } from '@expo/vector-icons';
 
 export default class DecisionScreen extends React.Component{
+	constructor(props){
+		super(props);
+		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
+		this.allergens = this.props.navigation.getParam('allergens', 'failed');
+	}
+
 	render(){
 		const {navigate} = this.props.navigation;
 		return(
@@ -18,7 +24,13 @@ export default class DecisionScreen extends React.Component{
 						no this thing has panute{"\n"}{"\n"}
 					</Text>
 					<Text style={styles.allergy_desc}>
-						Ingredients:
+						Ingredients:{"\n"}
+						{this.allergens.forEach(answer => {                           
+				           <Text>
+				           		{answer}
+				           </Text>
+				       	})
+				        }
 					</Text>
 			    </Text>
     		</LinearGradient>
