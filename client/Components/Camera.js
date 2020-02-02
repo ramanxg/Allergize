@@ -30,36 +30,31 @@ export default class Capture extends React.Component {
     const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
-
-      
-
-      this.setState({picture:photo.base64, pictureTaken:true});
       console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
-
-      let fetchOptions = {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({base64: photo.base64})
-          // body: formData
-      };
-      fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
-          .then(response =>
-          {
-              response.json()
-                  .then(json => {
-                      console.log("Success! " + JSON.stringify(json));
-                      Alert.alert("Response: " + JSON.stringify(json));
-                      this.props.showHome();
-                      navigate('Decision', { allergens: json.result, base64: photo.base64 });
-                  })
-                  .catch(err => {
-                      Alert.alert("Error: " + err);
-                  });
-          })
-          .catch(err => Alert.alert("Error: " + err));
-      }
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({base64: photo.base64})
+        // body: formData
+    };
+    fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
+        .then(response =>
+        {
+            response.json()
+                .then(json => {
+                    console.log("Success! " + JSON.stringify(json));
+                    // Alert.alert("Response: " + JSON.stringify(json));
+                    this.props.showHome();
+                    navigate('Decision', { allergens: json.result, base64: photo.base64 });
+                })
+                .catch(err => {
+                    Alert.alert("Error: " + err);
+                });
+        })
+        .catch(err => Alert.alert("Error: " + err));
+    }
   }
 
   render(){

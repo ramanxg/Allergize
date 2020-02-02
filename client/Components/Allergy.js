@@ -75,7 +75,7 @@ export default class Allergy extends React.Component {
   render(){
     return ( 
         <View style = {styles.container}>
-            <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button>
+            <Button style={{margin: 35}} onPress={() => {this.addAllergy(["egg", "milk", "wheat"])}} title="Store"></Button>
             <FlatList 
                 data = {this.state.allergies}
                 keyExtractor={item => item.name}
