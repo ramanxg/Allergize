@@ -1,15 +1,17 @@
 import React from 'react';
 import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity} from "react-native";
 import Constants from 'expo-constants';
-import {Button, Icon} from 'react-native-elements';
-import {FontAwesome} from 'react-native-vector-icons';
+import {Button, Icon, Header} from 'react-native-elements';
+import {Ionicons} from 'react-native-vector-icons';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default class Allergy extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            allergies: []
+            allergies: [],
+            input: ""
         }
         this.getAllergies();
     }
@@ -18,19 +20,32 @@ export default class Allergy extends React.Component {
         return self.indexOf(value) === index;
     }
 
-    addAllergy = async (allergy_list) => {
-        console.log("Adding allergy", allergy_list)
+    addAllergy = async () => {
+        // console.log("Adding allergy", allergy_list)
         // allergy_list =  ['eggs', 'wheat']
-        try {
+        if (this.state.input.length > 0) {
+           try {
             const current_list = await AsyncStorage.getItem('@allergies');
             console.log("Current Allergy List: ", current_list)
-            allergy_list = allergy_list.concat(JSON.parse(current_list).allergy_list).filter(this.onlyUnique);
+            let allergy_list = JSON.parse(current_list).allergy_list;
+            // allergy_list = allergy_list.concat(JSON.parse(current_list).allergy_list).filter(this.onlyUnique);
+            console.log("allergy_list", allergy_list);
+            let a = this.state.input.toLowerCase();
+            console.log(a);
+            if (!allergy_list.includes(a)) {
+                allergy_list.push(a);
+            }
+            this.setState({
+                input:""
+            });
             console.log("New Allergy List", allergy_list)
             await AsyncStorage.setItem('@allergies', JSON.stringify({allergy_list}))
             this.getAllergies();
         } catch (e) {
             console.log("Error", e);
+        } 
         }
+        
     }
 
     getAllergies = async () => {
@@ -70,12 +85,27 @@ export default class Allergy extends React.Component {
         console.log('Done.')
     }
 
-    
 
   render(){
+    const {navigate} = this.props.navigation;
     return ( 
         <View style = {styles.container}>
-            <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button>
+            <Header
+                leftComponent={<TouchableOpacity style={styles.backButton} onPress={() => navigate('Home')}>
+                                    <Ionicons name='ios-arrow-back' size={50} color='black'/>
+                                </TouchableOpacity>}
+                centerComponent={{text: 'Saved Allergies', style:{fontSize: 32, justifyContent: 'center'}}}
+            />
+            <View flexDirection='row' justifyContent='space-between' alignItems='center'>
+                <TextInput style={styles.text}
+                    placeholder = 'Enter the foods that you are allergic to'
+                    onChangeText = {text => (this.setState({'input': text}))}
+                    value={this.state.input}
+                />
+                <Button style= {{paddingRight: 30}} title='+' onPress={this.addAllergy}/>
+            </View>
+                
+            {/* <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button> */}
             <FlatList 
                 data = {this.state.allergies}
                 keyExtractor={item => item.name}
@@ -100,6 +130,14 @@ const styles = StyleSheet.create({
       marginTop: Constants.statusBarHeight,
     //   backgroundColor: 'yellow'
     },
+    text: {
+        width: '80%',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        padding: 5,
+        margin: 20,
+        fontSize: 18,
+    },
     item: {
         flex: 1,
       flexDirection: 'row',
@@ -110,9 +148,13 @@ const styles = StyleSheet.create({
       marginHorizontal: 16,
       borderRadius: 10,
     },
+    backButton: {
+        marginHorizontal: 16,
+    },
     title: {
         // Styles the text of the item
       fontSize: 32,
+
     },
     closeButton: {
         // Styles the X button
