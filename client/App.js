@@ -1,7 +1,6 @@
 import React from 'react';
 import Capture from "./Components/Camera";
 import Edit from "./Components/EditAllergies";
-import Pick from './Components/PickAllergies';
 import Camera from "./Components/Camera"
 import {View, Button, AsyncStorage} from "react-native";
 import Allergy from "./Components/Allergy"
@@ -22,7 +21,6 @@ export default class App extends React.Component {
   }
 
   render(){
-    return <Pick/>;
     return (
       // <Camera></Camera>
         <Allergy></Allergy>
