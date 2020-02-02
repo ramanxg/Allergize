@@ -1,8 +1,8 @@
 import React from 'react';
 import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity, ImageBackground} from "react-native";
 import Constants from 'expo-constants';
-import {Button, Icon, Header} from 'react-native-elements';
-import {Ionicons} from 'react-native-vector-icons';
+import {Button, Header, Icon} from 'react-native-elements';
+import {Ionicons, FontAwesome} from 'react-native-vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -104,9 +104,21 @@ export default class Allergy extends React.Component {
                             placeholder = 'Enter your allergies'
                             placeholderTextColor = 'rgba(255,255,255,100)'
                             onChangeText = {text => (this.setState({'input': text}))}
+                            onSubmitEditing = {this.addAllergy}
                             value={this.state.input}
                         />
-                        <Button style= {{paddingRight: 30}} title='+' onPress={this.addAllergy}/>
+                    <Button
+                        icon={
+                            <Icon
+                                name='plus'
+                                type='font-awesome'
+                                color='rgba(40,186,0,1)'
+                                iconStyle={{marginLeft:-45}}
+                            />
+                        } 
+                        type='clear' 
+                        onPress={this.addAllergy}
+                    />
                     </View>
                         
                     {/* <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button> */}
