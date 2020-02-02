@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import {decode as atob, encode as btoa} from 'base-64';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 export default class Capture extends React.Component {
   state = {
@@ -41,29 +42,6 @@ export default class Capture extends React.Component {
                 });
         })
         .catch(err => Alert.alert("Error: " + err));
-
-      // var oReq = new XMLHttpRequest();
-      // oReq.open("GET", photo.uri, true);
-      // oReq.responseType = "blob";
-      //
-      // oReq.onload = function(oEvent) {
-      //   let blob  = oReq.response;
-      //   console.log("Is Blob: " + blob instanceof Blob);
-      //   console.log("blob: " + JSON.stringify(blob));
-      //   // console.log("Stream: " + blob.stream());
-      //   // console.log("Text: " + blob.text().then(res => console.log(res)).catch(err => console.log(err)));
-      //   // console.log("AB: " + blob.arrayBuffer().then(res => console.log(res)).catch(err => console.log(err)));
-      //
-      //   let reader = new FileReader();
-      //   reader.readAsDataURL(blob);
-      //   reader.onloadend = function() {
-      //       var base64data = reader.result;
-      //       console.log("Base 64: " + base64data.slice(0,100));
-      //       const formData  = new FormData();
-      //       formData.append("file", blob);
-      //   }
-      // };
-      // oReq.send();
     }
   }
 
@@ -79,9 +57,9 @@ export default class Capture extends React.Component {
             <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}>
             </Camera>
             <Button
-              title="Press me"
-              color="#f194ff"
-              onPress={this.takePicture}
+                title="Press me"
+                color="#f194ff"
+                onPress={this.takePicture}
             />
         </View>
       );
@@ -95,5 +73,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  Button: {
+      alignItems: 'center'
   },
 });
