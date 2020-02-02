@@ -33,11 +33,12 @@ export default class Capture extends React.Component {
   }
 
   takePicture = async () => {
-    this.setState({ pictureTaken:true });
     const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
       console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
+      
+    this.setState({ pictureTaken:true });
     let fetchOptions = {
         method: 'PUT',
         headers: {
