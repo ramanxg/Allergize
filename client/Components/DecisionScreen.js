@@ -61,7 +61,7 @@ export default class DecisionScreen extends React.Component{
 					<ImageBackground style={styles.background} source={require('../images/splotches_2.png')}>
 						<ImageBackground style={styles.food_image} source={{uri: `data:image/gif;base64,${this.base64}`}}>
 							<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
-								<Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+								<Ionicons name='md-arrow-back' size={35} color='rgba(255,255,255,0.85)'/>
 							</TouchableOpacity>
 						</ImageBackground>
 						<View style={styles.allergy}>
@@ -122,10 +122,11 @@ const styles = StyleSheet.create({
 		height: 50,
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderWidth: 5,
+		borderWidth: 4,
 		borderColor: 'rgba(255,255,255,0.55)'
 	  },
 	title:{
 		fontSize:20,
+		color: 'rgba(255,255,255,0.85)'
 	}
 });

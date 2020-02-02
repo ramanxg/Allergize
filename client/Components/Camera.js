@@ -79,20 +79,20 @@ export default class Capture extends React.Component {
       console.log("pictureTaken:" + pictureTaken);
       return (
         <View style={{ flex: 1}}>
-            {/* {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>} */}
-            {!pictureTaken && <><Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
-            <View >
-                <TouchableOpacity style={styles.button} onPress={this.backPress}>
-								  <Ionicons name='ios-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+           <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
+            <View>
+              {!pictureTaken && <><TouchableOpacity style={styles.button} onPress={this.backPress}>
+								 <Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
 							  </TouchableOpacity>
                 <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
                     <Icon
                         type='font-awesome'
                         name='camera'
-                        color='white'
+                        color='rgba(255,255,255,0.8)'
                     />  
-                </TouchableOpacity>
-            </View></>}
+                </TouchableOpacity></>}
+              {pictureTaken && <Text style={{backgroundColor: 'black', color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10}}>Processing Image...</Text>}
+            </View>
         </View>
       );
     }
@@ -110,18 +110,20 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 0,
       left: 10,
+      marginBottom: 40,
+      marginLeft: 20
   },
   takePictureButton: {
     width: 75,
     height: 75,
-    borderWidth: 10,
+    borderWidth: 6,
     borderRadius: 150,
-    borderColor: 'white',
+    borderColor: 'rgba(255,255,255,0.8)',
     backgroundColor: 'rgba(0,0,0,0)',
     justifyContent: 'center',
     position: 'absolute',
     bottom: 25,
-    left: 150,
+    left: 170,
 
   },
 });
