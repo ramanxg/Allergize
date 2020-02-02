@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome } from '@expo/vector-icons';
+import {Button, Icon} from 'react-native-elements';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -62,14 +63,17 @@ export default class Capture extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
-            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}>
-            </Camera>
-            <Button
-                title="Press me"
-                color="#f194ff"
-                onPress={this.takePicture}
-            />
+        <View style={{ flex: 1}}>
+            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
+
+            <View style={{backgroundColor: 'black', alignItems: 'center'}}>
+                <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
+                    <Icon
+                        type='font-awesome'
+                        name='camera'
+                    />  
+                </TouchableOpacity>
+            </View>
         </View>
       );
     }
@@ -84,6 +88,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   Button: {
-      alignItems: 'center'
+      alignItems: 'center',
+  },
+  takePictureButton: {
+    width: 75,
+    height: 75,
+    borderWidth: 2,
+    borderRadius: 150,
+    backgroundColor: 'white',
+    justifyContent: 'center',
   },
 });

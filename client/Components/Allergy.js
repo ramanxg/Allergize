@@ -1,11 +1,10 @@
 import React from 'react';
-import {FlatList, View, StyleSheet, Text, Button, AsyncStorage} from "react-native";
+import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity} from "react-native";
 import Constants from 'expo-constants';
-
+import {Button, Icon} from 'react-native-elements';
+import {FontAwesome} from 'react-native-vector-icons';
 
 export default class Allergy extends React.Component {
-
-
     constructor (props) {
         super(props);
 
@@ -76,14 +75,16 @@ export default class Allergy extends React.Component {
   render(){
     return ( 
         <View style = {styles.container}>
-            <Button style={{margin: 100}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button>
+            <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button>
             <FlatList 
                 data = {this.state.allergies}
                 keyExtractor={item => item.name}
                 renderItem={({ item, index, separators }) => (
                     <View style={styles.item}>
                         <Text style={styles.title}>{item.name}</Text>
-                        <Button style = {styles.button} title='X' onPress = {() => {this.removeAllergy(item.name)}}></Button>
+                        <TouchableOpacity style = {styles.closeButton} onPress = {() => {this.removeAllergy(item.name)}}>
+                            <Text style = {styles.closeText}>X</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
                 
@@ -97,21 +98,34 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       marginTop: Constants.statusBarHeight,
+    //   backgroundColor: 'yellow'
     },
     item: {
         flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: '#f9c2ff',
-      padding: 20,
+      backgroundColor: '#7aaaf5',
+      padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
+      borderRadius: 10,
     },
     title: {
+        // Styles the text of the item
       fontSize: 32,
     },
-    button: {
+    closeButton: {
+        // Styles the X button
         width: 50,
-        
+        fontSize: 30,
+    },
+    closeText: {
+        // Styles the text 'X'
+        fontSize: 25,
+        fontWeight: "bold",
+        color: 'red',
+        textAlign: 'right',
+        paddingTop: 3,
+        paddingRight: 5,
     }
   });

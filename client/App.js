@@ -9,7 +9,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Capture from "./Components/Camera";
 import Edit from "./Components/EditAllergies";
 import Pick from './Components/PickAllergies';
-import {Button, AsyncStorage, Alert} from "react-native";
+import {View, Button, AsyncStorage, Alert} from "react-native";
 import Allergy from "./Components/Allergy"
 
 class HomeScreen extends React.Component {
