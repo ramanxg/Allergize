@@ -4,16 +4,6 @@ import Constants from 'expo-constants';
 import {Button, Icon} from 'react-native-elements';
 import {FontAwesome} from 'react-native-vector-icons';
 
-
-// function Item({ allergy }) {
-//     return (
-//       <View style={styles.item}>
-//         <Text style={styles.title}>{allergy}</Text>
-//         <Button style = {styles.button} title='X' onPress = {() => {this.removeAllergy(allergy)}}></Button>
-//       </View>
-//     );
-//   }
-
 export default class Allergy extends React.Component {
     constructor (props) {
         super(props);

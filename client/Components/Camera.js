@@ -4,13 +4,20 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome } from '@expo/vector-icons';
 import {Button, Icon} from 'react-native-elements';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 
 export default class Capture extends React.Component {
-  state = {
-    hasPermission: null,
-    type: Camera.Constants.Type.back,
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      hasPermission: null,
+      type: Camera.Constants.Type.back,
+    };
   }
+
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -18,10 +25,10 @@ export default class Capture extends React.Component {
   }
 
   takePicture = async () => {
+    const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
       console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
-
     let fetchOptions = {
         method: 'PUT',
         headers: {
@@ -37,6 +44,8 @@ export default class Capture extends React.Component {
                 .then(json => {
                     console.log("Success! " + JSON.stringify(json));
                     Alert.alert("Response: " + JSON.stringify(json));
+                    this.props.showHome();
+                    navigate('Decision', { allergens: json.result });
                 })
                 .catch(err => {
                     Alert.alert("Error: " + err);
