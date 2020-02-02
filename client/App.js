@@ -34,7 +34,7 @@ class HomeScreen extends React.Component {
 	    		<TouchableOpacity style={styles.mainButton} onPress={() => navigate('Decision')}>
 	    			<Image style={styles.logoIcon} source={require('./images/logo.png')}/>
 	    		</TouchableOpacity>
-	    		<TouchableOpacity style={styles.button}>
+	    		<TouchableOpacity style={styles.button} onPress={() => navigate('Allergy')}>
 	    			<Foundation name='pencil' size={50} color='black'/>
 	    		</TouchableOpacity>
 	    	</View>
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Decision: {screen: DecisionScreen},
+  Profile: {screen: Allergy}
 },
 {
 	initialRouteName: 'Home',
