@@ -22,7 +22,7 @@ export default class DecisionScreen extends React.Component{
             }
             this.setState({
 				found: found,
-				edible: allergy_list.length == 0 
+				edible: allergy_list.length == 0
             });
         } catch(e) {
             console.log("Error", e);
@@ -46,7 +46,7 @@ export default class DecisionScreen extends React.Component{
 	    			</TouchableOpacity>
 				</ImageBackground>
 				<Text style={styles.allergy}>
-					<FlatList 
+					<FlatList
 					data = {this.state.found}
 					ListHeaderComponent={() => (
 						<Text style={styles.allergy_header}>{conclusion}</Text>
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   		marginTop: 40,
   		marginLeft: 20,
   		borderRadius: 50,
-		backgroundColor: 'rgba(0,0,0,100)',
 		width: 50,
 		height: 50,
 		elevation: 5,
@@ -104,6 +103,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	  },
 	title:{
-		fontSize=32,
+		fontSize:32,
 	}
 });
