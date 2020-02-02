@@ -44,7 +44,7 @@ export default class Capture extends React.Component {
                     console.log("Success! " + JSON.stringify(json));
                     Alert.alert("Response: " + JSON.stringify(json));
                     this.props.showHome();
-                    navigate('Decision', { allergens: json.result });
+                    navigate('Decision', { allergens: json.result, base64: photo.base64 });
                 })
                 .catch(err => {
                     Alert.alert("Error: " + err);
