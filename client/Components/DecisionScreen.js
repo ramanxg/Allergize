@@ -7,7 +7,7 @@ export default class DecisionScreen extends React.Component{
 
 	constructor (props) {
 		super(props);
-		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
+		// Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
 		this.allergens = this.props.navigation.getParam('allergens', 'failed');
 		this.base64 = this.props.navigation.state.params.base64;
 		console.log(this.allergens)
@@ -23,14 +23,15 @@ export default class DecisionScreen extends React.Component{
             const value = await AsyncStorage.getItem('@allergies')
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
+			console.log(this.allergens)
 			let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
-			found = this.allergens;
+			console.log(found)
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
 			}
             this.setState({
 				found: found,
-				edible: allergy_list.length == 0
+				edible: found.length == 0
             });
         } catch(e) {
             console.log("Error", e);
@@ -56,13 +57,16 @@ export default class DecisionScreen extends React.Component{
 							</TouchableOpacity>
 						</ImageBackground>
 						<View style={styles.allergy}>
-							<Text style={styles.allergy_footer}>
+							<Text style={styles.conclusion}>
 								{conclusion} 
 							</Text>
 							<FlatList
 							data = {this.state.found}
 							ListHeaderComponent={() => (
 								<Text style={styles.allergy_header}>Allergens: {"\n"}</Text>
+							)}
+							ListEmptyComponent={() => (
+								<Text style={styles.item}>None{"\n"}</Text>
 							)}
 							keyExtractor={item => item.name}
 							renderItem={({ item, index, separators }) => (
@@ -89,12 +93,11 @@ const styles = StyleSheet.create({
 	background:{
 		flex: 1
 	},
-	allergy_footer:{
+	conclusion:{
 		fontSize: 45,
-		flexDirection: 'column',
-		flex: 1,
 		fontWeight: 'bold',
 		marginTop: 30,
+		marginBottom: 10,
 		width: 300
 	},
 	allergy_header:{

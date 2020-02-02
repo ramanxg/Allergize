@@ -28,7 +28,6 @@ export default class Capture extends React.Component {
     const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
-      this.camera.pausePreview()
       console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
     let fetchOptions = {
         method: 'PUT',
@@ -44,7 +43,7 @@ export default class Capture extends React.Component {
             response.json()
                 .then(json => {
                     console.log("Success! " + JSON.stringify(json));
-                    Alert.alert("Response: " + JSON.stringify(json));
+                    // Alert.alert("Response: " + JSON.stringify(json));
                     this.props.showHome();
                     navigate('Decision', { allergens: json.result, base64: photo.base64 });
                 })
