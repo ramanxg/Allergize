@@ -4,7 +4,7 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 
 
-export default class Camera extends React.Component {
+export default class Capture extends React.Component {
   state = {
     hasPermission: null,
     type: Camera.Constants.Type.back,
