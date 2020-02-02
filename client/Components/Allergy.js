@@ -1,8 +1,8 @@
 import React from 'react';
 import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity} from "react-native";
 import Constants from 'expo-constants';
-import {Button, Icon, Header} from 'react-native-elements';
-import {Ionicons} from 'react-native-vector-icons';
+import {Button, Header, Icon} from 'react-native-elements';
+import {Ionicons, FontAwesome} from 'react-native-vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class Allergy extends React.Component {
@@ -98,14 +98,23 @@ export default class Allergy extends React.Component {
             />
             <View flexDirection='row' justifyContent='space-between' alignItems='center'>
                 <TextInput style={styles.text}
-                    placeholder = 'Enter the foods that you are allergic to'
+                    placeholder = "Enter the foods that you're allergic to"
                     onChangeText = {text => (this.setState({'input': text}))}
                     value={this.state.input}
                 />
-                <Button style= {{paddingRight: 30}} title='+' onPress={this.addAllergy}/>
+                <Button
+                    icon={
+                        <Icon
+                            name='plus'
+                            type='font-awesome'
+                            color='green'
+                        />
+                    } 
+                    type='clear' 
+                    onPress={this.addAllergy}
+                />
             </View>
                 
-            {/* <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button> */}
             <FlatList 
                 data = {this.state.allergies}
                 keyExtractor={item => item.name}
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
     },
     backButton: {
-        marginHorizontal: 16,
+        marginLeft: 16,
     },
     title: {
         // Styles the text of the item

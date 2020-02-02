@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Alert, TouchableOpacity, ImageBackground} from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
-import { FontAwesome } from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 import {Button, Icon} from 'react-native-elements';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -18,6 +18,12 @@ export default class Capture extends React.Component {
       pictureTaken: false,
       picture:""
     };
+  }
+
+  backPress = () => {
+    const {navigate} = this.props.navigation;
+    console.log("hit back button");
+    this.props.showHome();
   }
 
 
@@ -60,6 +66,7 @@ export default class Capture extends React.Component {
   render(){
     const { hasPermission } = this.state.hasPermission;
     const pictureTaken = this.state.pictureTaken;
+    const {navigate} = this.props.navigation;
     let picture = this.state.picture;
     console.log("Picture: ", picture);
     if (hasPermission === null) {
@@ -67,16 +74,20 @@ export default class Capture extends React.Component {
     } else if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     } else {
-      console.log("pictureTkaen:" + pictureTaken);
+      console.log("pictureTaken:" + pictureTaken);
       return (
         <View style={{ flex: 1}}>
             {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>}
             {!pictureTaken && <><Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
-            <View style={{backgroundColor: 'black', alignItems: 'center'}}>
+            <View>
+                <TouchableOpacity style={styles.button} onPress={this.backPress}>
+								  <Ionicons name='ios-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+							  </TouchableOpacity>
                 <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
                     <Icon
                         type='font-awesome'
                         name='camera'
+                        color='white'
                     />  
                 </TouchableOpacity>
             </View></>}
@@ -93,15 +104,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  Button: {
-      alignItems: 'center',
+  button: {
+      position: 'absolute',
+      bottom: 0,
+      left: 10,
   },
   takePictureButton: {
     width: 75,
     height: 75,
-    borderWidth: 2,
+    borderWidth: 10,
     borderRadius: 150,
-    backgroundColor: 'white',
+    borderColor: 'white',
+    backgroundColor: 'rgba(0,0,0,0)',
     justifyContent: 'center',
+    position: 'absolute',
+    bottom: 25,
+    left: 150,
+
   },
 });
