@@ -2,31 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f29cd96-6fd3-4ea9-a836-4148dac8352d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/Components/Allergy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/Components/EditAllergies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/Components/PickAllergies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/lib/src/BouncyCheckbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/lib/src/BouncyCheckbox.style.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-bouncy-checkbox/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/BaseComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/assets/images/check.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/assets/images/screenshot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-native-multiple-choice/styles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Components/Camera.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Components/Camera.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Components/Login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Components/PickAllergies.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Components/PickAllergies.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/users.js" afterDir="false" />
     </list>
@@ -44,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+            <state relative-caret-position="476">
+              <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -59,14 +37,56 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/Components/Camera.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/Components/PickAllergies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/package-lock.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="1935" column="12" selection-start-line="1935" selection-start-column="8" selection-end-line="1935" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -89,6 +109,7 @@
       <find>name</find>
       <find>json.</find>
       <find>AB</find>
+      <find>HEAD</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,6 +125,9 @@
         <option value="$PROJECT_DIR$/server/app.js" />
         <option value="$PROJECT_DIR$/server/routes/allergies.js" />
         <option value="$PROJECT_DIR$/client/Components/Camera.js" />
+        <option value="$PROJECT_DIR$/client/package.json" />
+        <option value="$PROJECT_DIR$/client/Components/PickAllergies.js" />
+        <option value="$PROJECT_DIR$/client/App.js" />
       </list>
     </option>
   </component>
@@ -130,6 +154,12 @@
               <item name="HackUCI" type="b2602c69:ProjectViewProjectNode" />
               <item name="HackUCI" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HackUCI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HackUCI" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HackUCI" type="b2602c69:ProjectViewProjectNode" />
@@ -174,18 +204,18 @@
       <updated>1580536762237</updated>
       <workItem from="1580536763641" duration="9737000" />
       <workItem from="1580550799143" duration="6364000" />
-      <workItem from="1580580138509" duration="21497000" />
+      <workItem from="1580580138509" duration="21924000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37598000" />
+    <option name="totallyTimeSpent" value="38025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -197,7 +227,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.28277355" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.28277355" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -237,13 +267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -275,23 +298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../helloexpress/routes/image/image.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -313,10 +319,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="1935" column="12" selection-start-line="1935" selection-start-column="8" selection-end-line="1935" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/Components/Camera.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="43" column="52" selection-start-line="43" selection-start-column="52" selection-end-line="43" selection-end-column="52" />
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Components/PickAllergies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

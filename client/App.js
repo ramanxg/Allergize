@@ -22,10 +22,9 @@ export default class App extends React.Component {
   }
 
   render(){
-    return <Pick/>;
     return (
-      // <Camera></Camera>
-        <Allergy></Allergy>
+      <Camera></Camera>
+        // <Allergy></Allergy>
     );
   }
 }
