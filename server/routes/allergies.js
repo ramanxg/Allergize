@@ -96,6 +96,7 @@ async function findRecipes(foodItem) {
     let searchUrl = `https://api.spoonacular.com/recipes/search?apiKey=${apiKey}&query=${foodItem}`;
     let response = await fetch(searchUrl);
     let json = await response.json();
+    console.log("Recipe JSON: ", JSON.stringify(json));
     let ids = [];
     for (let i = 0; i < SAMPLE && i < json.results.length; i++) {
         ids.push(json.results[i].id);
