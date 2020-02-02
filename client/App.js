@@ -9,10 +9,16 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Capture from "./Components/Camera";
 import Edit from "./Components/EditAllergies";
 import Pick from './Components/PickAllergies';
-import {Button, AsyncStorage} from "react-native";
+import {Button, AsyncStorage, Alert} from "react-native";
 import Allergy from "./Components/Allergy"
 
 class HomeScreen extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = { onCamera: false };
+	}
+
 	componentDidMount = () => {
       AsyncStorage.getItem('@allergies').then((value) => {
       if (!value) {
@@ -25,20 +31,30 @@ class HomeScreen extends React.Component {
     });
   }
 
+  showHome = () => {
+  	this.setState({onCamera:false});
+  }
+
   render(){
+  	const onCamera = this.state.onCamera;
   	const {navigate} = this.props.navigation;
     return (
-    	<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
-	    	<View style={styles.container}>
-	    		<Text style={styles.text}>Tap to Allergize</Text>
-	    		<TouchableOpacity style={styles.mainButton} onPress={() => navigate('Decision')}>
-	    			<Image style={styles.logoIcon} source={require('./images/logo.png')}/>
-	    		</TouchableOpacity>
-	    		<TouchableOpacity style={styles.button} onPress={() => navigate('Allergy')}>
-	    			<Foundation name='pencil' size={50} color='black'/>
-	    		</TouchableOpacity>
-	    	</View>
-    	</LinearGradient>
+    	<>
+	    	{ !onCamera && <LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
+		    	<View style={styles.container}>
+		    		<Text style={styles.text}>Tap to Allergize</Text>
+		    		<TouchableOpacity style={styles.mainButton} onPress={() => this.setState({onCamera:true})}>
+		    			<Image style={styles.logoIcon} source={require('./images/logo.png')}/>
+		    		</TouchableOpacity>
+		    		<TouchableOpacity style={styles.button} onPress={() => navigate('Profile')}>
+		    			<Foundation name='pencil' size={50} color='black'/>
+		    		</TouchableOpacity>
+		    	</View>
+	    	</LinearGradient>
+	    	}
+	    	{onCamera && <Capture navigation={this.props.navigation} showHome={this.showHome}/>}
+	    </>
+    	
     );
   }
 }
@@ -97,7 +113,9 @@ const styles = StyleSheet.create({
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Decision: {screen: DecisionScreen},
+  Camera: {screen: Capture},
   Profile: {screen: Allergy}
+
 },
 {
 	initialRouteName: 'Home',

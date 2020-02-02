@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground} from 'react-native';
+import { FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome, Foundation } from '@expo/vector-icons';
 
@@ -7,6 +7,8 @@ export default class DecisionScreen extends React.Component{
 
 	constructor (props) {
 		super(props);
+		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
+		this.allergens = this.props.navigation.getParam('allergens', 'failed');
 	}
 	getAllergies = async () => {
         console.log("Getting Allergies");
@@ -44,7 +46,6 @@ export default class DecisionScreen extends React.Component{
 	    			</TouchableOpacity>
 				</ImageBackground>
 				<Text style={styles.allergy}>
-					
 					<FlatList 
 					data = {this.state.found}
 					ListHeaderComponent={() => (
