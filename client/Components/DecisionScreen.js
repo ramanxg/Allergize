@@ -9,6 +9,7 @@ export default class DecisionScreen extends React.Component{
 		super(props);
 		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
 		this.allergens = this.props.navigation.getParam('allergens', 'failed');
+		this.base64 = this.props.navigation.state.params.base64;
 		console.log(this.allergens)
 		this.state = {
 			found: [],
@@ -22,11 +23,11 @@ export default class DecisionScreen extends React.Component{
             const value = await AsyncStorage.getItem('@allergies')
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
-			// let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
-			let found = this.allergens;
+			let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
+			found = this.allergens;
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
-            }
+			}
             this.setState({
 				found: found,
 				edible: allergy_list.length == 0
@@ -45,10 +46,11 @@ export default class DecisionScreen extends React.Component{
 		} else {
 			conclusion = "DO NOT EAT!";
 		}
+		/*source={require('../images/food_sample.jpg')}>} */
 		return(
 				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,153,133,100)']} style={{alignItems: 'center', flex: 1}}>
 					<ImageBackground style={styles.background} source={require('../images/splotches_1.png')}>
-						<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
+						<ImageBackground style={styles.food_image} source={{uri: `data:image/gif;base64,${this.base64}`}}>
 							<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
 								<Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
 							</TouchableOpacity>
