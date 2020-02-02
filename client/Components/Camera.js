@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import {decode as atob, encode as btoa} from 'base-64';
 
-
-export default class Camera extends React.Component {
+export default class Capture extends React.Component {
   state = {
     hasPermission: null,
     type: Camera.Constants.Type.back,
@@ -17,26 +17,53 @@ export default class Camera extends React.Component {
 
   takePicture = async () => {
     if (this.camera) {
-      Alert.alert("Taking Picture!");
-      let photo = await this.camera.takePictureAsync();
-      console.log(photo);
+      let photo = await this.camera.takePictureAsync({base64: true});
+      console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
 
-      var oReq = new XMLHttpRequest();
-      oReq.open("GET", photo.uri, true);
-      oReq.responseType = "blob";
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({base64: photo.base64})
+        // body: formData
+    };
+    fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
+        .then(response =>
+        {
+            response.json()
+                .then(json => {
+                    console.log("Success! " + JSON.stringify(json));
+                    Alert.alert("Response: " + JSON.stringify(json));
+                })
+                .catch(err => {
+                    Alert.alert("Error: " + err);
+                });
+        })
+        .catch(err => Alert.alert("Error: " + err));
 
-      oReq.onload = function(oEvent) {
-        var blob = oReq.response;
-
-        // var reader = new FileReader();
-        // reader.readAsDataURL(blob); 
-        // reader.onloadend = function() {
-        //     var base64data = reader.result;                
-        //     console.log("Base 64: " + base64data);
-        // }
-      };
-
-      oReq.send();
+      // var oReq = new XMLHttpRequest();
+      // oReq.open("GET", photo.uri, true);
+      // oReq.responseType = "blob";
+      //
+      // oReq.onload = function(oEvent) {
+      //   let blob  = oReq.response;
+      //   console.log("Is Blob: " + blob instanceof Blob);
+      //   console.log("blob: " + JSON.stringify(blob));
+      //   // console.log("Stream: " + blob.stream());
+      //   // console.log("Text: " + blob.text().then(res => console.log(res)).catch(err => console.log(err)));
+      //   // console.log("AB: " + blob.arrayBuffer().then(res => console.log(res)).catch(err => console.log(err)));
+      //
+      //   let reader = new FileReader();
+      //   reader.readAsDataURL(blob);
+      //   reader.onloadend = function() {
+      //       var base64data = reader.result;
+      //       console.log("Base 64: " + base64data.slice(0,100));
+      //       const formData  = new FormData();
+      //       formData.append("file", blob);
+      //   }
+      // };
+      // oReq.send();
     }
   }
 
