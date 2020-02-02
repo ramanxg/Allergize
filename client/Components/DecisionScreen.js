@@ -24,7 +24,7 @@ export default class DecisionScreen extends React.Component{
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
 			let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
-			let found = this.allergens;
+			found = this.allergens;
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
 			}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Camera from "./Components/Camera"
 import DecisionScreen from "./Components/DecisionScreen"
-import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground} from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, AsyncStorage} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome, Foundation } from '@expo/vector-icons';
 import {createAppContainer} from 'react-navigation';
@@ -9,7 +9,6 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Capture from "./Components/Camera";
 import Edit from "./Components/EditAllergies";
 import Pick from './Components/PickAllergies';
-import {View, Button, AsyncStorage, Alert} from "react-native";
 import Allergy from "./Components/Allergy"
 
 class HomeScreen extends React.Component {
