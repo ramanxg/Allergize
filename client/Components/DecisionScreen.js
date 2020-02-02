@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, Alert} from 'react-native';
+import { AsyncStorage, FlatList, Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground, Alert} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome, Foundation } from '@expo/vector-icons';
 
@@ -9,6 +9,12 @@ export default class DecisionScreen extends React.Component{
 		super(props);
 		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
 		this.allergens = this.props.navigation.getParam('allergens', 'failed');
+		console.log(this.allergens)
+		this.state = {
+			found: [],
+			edible: false
+		};
+		this.getAllergies();
 	}
 	getAllergies = async () => {
         console.log("Getting Allergies");
@@ -16,7 +22,8 @@ export default class DecisionScreen extends React.Component{
             const value = await AsyncStorage.getItem('@allergies')
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
-			let found = allergy_list.filter(value => -1 !== this.props.allergens.indexOf(value))
+			// let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
+			let found = this.allergens;
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
             }
@@ -39,31 +46,31 @@ export default class DecisionScreen extends React.Component{
 			conclusion = "You are allergic to these!";
 		}
 		return(
-			<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
-				<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
-					<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
-	    				<Ionicons name='ios-arrow-back' size={50} color='black'/>
-	    			</TouchableOpacity>
-				</ImageBackground>
-				<Text style={styles.allergy}>
-					<FlatList
-					data = {this.state.found}
-					ListHeaderComponent={() => (
-						<Text style={styles.allergy_header}>{conclusion}</Text>
-					)}
-					ListFooterComponent={() => (
-						<Text style={styles.allergy_footer}>
-							no this thing has panute{"\n"}{"\n"}
-						</Text>
-					)}
-					keyExtractor={item => item.name}
-					renderItem={({ item, index, separators }) => (
-						<View style={styles.item}>
-							<Text style={styles.title}>{item.name}</Text>
-						</View>
-					)}></FlatList>
-			    </Text>
-    		</LinearGradient>
+				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
+					<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
+						<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
+							<Ionicons name='ios-arrow-back' size={50} color='black'/>
+						</TouchableOpacity>
+					</ImageBackground>
+					<View style={styles.allergy}>
+						<FlatList
+						data = {this.state.found}
+						ListHeaderComponent={() => (
+							<Text style={styles.allergy_header}>Allergens: </Text>
+						)}
+						ListFooterComponent={() => (
+							<Text style={styles.allergy_footer}>
+								{conclusion} 
+							</Text>
+						)}
+						keyExtractor={item => item.name}
+						renderItem={({ item, index, separators }) => (
+							<View style={styles.item}>
+								<Text style={styles.title}>{item.name}</Text>
+							</View>
+						)}></FlatList>
+					</View>
+				</LinearGradient>
 		);
 	}
 }
@@ -103,6 +110,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	  },
 	title:{
-		fontSize:32,
+		fontSize:20,
 	}
 });
