@@ -49,7 +49,7 @@ class HomeScreen extends React.Component {
 			    			</Text>
 			    		</TouchableOpacity>
 			    		<TouchableOpacity style={styles.button} onPress={() => navigate('Profile')}>
-			    			<Foundation name='pencil' size={50} color='rgba(255,255,255,0.5)'/>
+			    			<Ionicons name='md-person' size={50} color='rgba(255,255,255,0.65)'/>
 			    		</TouchableOpacity>
 			    	</View>
 		    	</ImageBackground>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 	buttonText:{
 		fontSize: 40,
 		fontWeight: 'bold',
-		color: 'rgba(255,255,255,0.5)'
+		color: 'rgba(255,255,255,0.65)'
 
 	},
 	logoIcon:{
@@ -91,25 +91,23 @@ const styles = StyleSheet.create({
 	},
 	mainButton:{
 		borderRadius: 500,
-		marginTop: 50,
 		width: 275,
 		height: 275,
 		marginTop: 200,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderWidth: 10,
-		borderColor: 'rgba(255,255,255,0.5)'
+		borderColor: 'rgba(255,255,255,0.35)'
 	},
 	button:{
 		borderRadius: 50,
-		marginTop: 50,
 		width: 80,
 		height: 80,
-		marginTop: 100,
+		marginTop: 125,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderWidth: 7,
-		borderColor: 'rgba(255,255,255,0.5)'
+		borderColor: 'rgba(255,255,255,0.35)'
 	},
 	ImageIconStyle:{
 		padding: 10,

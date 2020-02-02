@@ -41,35 +41,35 @@ export default class DecisionScreen extends React.Component{
 		let conclusion;
 
 		if (this.state.edible) {
-			conclusion = "No allergies found! Eat up!";
+			conclusion = "SAFE TO EAT!";
 		} else {
-			conclusion = "You are allergic to these!";
+			conclusion = "DO NOT EAT!";
 		}
 		return(
-				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
-					<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
-						<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
-							<Ionicons name='ios-arrow-back' size={50} color='black'/>
-						</TouchableOpacity>
-					</ImageBackground>
-					<View style={styles.allergy}>
-						<FlatList
-						data = {this.state.found}
-						ListHeaderComponent={() => (
-							<Text style={styles.allergy_header}>Allergens: </Text>
-						)}
-						ListFooterComponent={() => (
+				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,153,133,100)']} style={{alignItems: 'center', flex: 1}}>
+					<ImageBackground style={styles.background} source={require('../images/splotches_1.png')}>
+						<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
+							<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
+								<Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+							</TouchableOpacity>
+						</ImageBackground>
+						<View style={styles.allergy}>
 							<Text style={styles.allergy_footer}>
 								{conclusion} 
 							</Text>
-						)}
-						keyExtractor={item => item.name}
-						renderItem={({ item, index, separators }) => (
-							<View style={styles.item}>
-								<Text style={styles.title}>{item.name}</Text>
-							</View>
-						)}></FlatList>
-					</View>
+							<FlatList
+							data = {this.state.found}
+							ListHeaderComponent={() => (
+								<Text style={styles.allergy_header}>Allergens: {"\n"}</Text>
+							)}
+							keyExtractor={item => item.name}
+							renderItem={({ item, index, separators }) => (
+								<View style={styles.item}>
+									<Text style={styles.title}>{item.name}</Text>
+								</View>
+							)}></FlatList>
+						</View>
+					</ImageBackground>
 				</LinearGradient>
 		);
 	}
@@ -81,12 +81,19 @@ const styles = StyleSheet.create({
 		width: 420
 	},
 	allergy:{
-		flex: 1.75
+		flex: 1.75,
+		marginLeft: 50
+	},
+	background:{
+		flex: 1
 	},
 	allergy_footer:{
-		fontSize: 35,
+		fontSize: 45,
 		flexDirection: 'column',
-		flex: 1
+		flex: 1,
+		fontWeight: 'bold',
+		marginTop: 30,
+		width: 300
 	},
 	allergy_header:{
 		fontSize: 25,
@@ -104,10 +111,10 @@ const styles = StyleSheet.create({
   		borderRadius: 50,
 		width: 50,
 		height: 50,
-		elevation: 5,
-		backgroundColor: 'rgba(255,197,110,100)',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderWidth: 5,
+		borderColor: 'rgba(255,255,255,0.55)'
 	  },
 	title:{
 		fontSize:20,
