@@ -26,7 +26,9 @@ export default class DecisionScreen extends React.Component{
 			let found = this.allergens;
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
-            }
+			}
+			
+			found = [];
             this.setState({
 				found: found,
 				edible: allergy_list.length == 0
@@ -63,6 +65,9 @@ export default class DecisionScreen extends React.Component{
 								{conclusion} 
 							</Text>
 						)}
+						ListEmptyComponent={() => {
+							<Text style={styles.item}>None</Text>
+						}}
 						keyExtractor={item => item.name}
 						renderItem={({ item, index, separators }) => (
 							<View style={styles.item}>
