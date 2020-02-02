@@ -40,29 +40,32 @@ export default class DecisionScreen extends React.Component{
 	render(){
 		const {navigate} = this.props.navigation;
 		let conclusion;
+		let conclusionColor;
 
 		if (this.state.edible) {
 			conclusion = "SAFE TO EAT!";
+			conclusionColor = 'rgba(71,204,0,100)';
 		} else {
 			conclusion = "DO NOT EAT!";
+			conclusionColor = 'rgba(240,0,0,100)';
 		}
 		/*source={require('../images/food_sample.jpg')}>} */
 		return(
-				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,153,133,100)']} style={{alignItems: 'center', flex: 1}}>
-					<ImageBackground style={styles.background} source={require('../images/splotches_1.png')}>
+				<LinearGradient colors={['rgba(255,240,69,100)', 'rgba(255,110,133,100)']} style={{alignItems: 'center', flex: 1}}>
+					<ImageBackground style={styles.background} source={require('../images/splotches_2.png')}>
 						<ImageBackground style={styles.food_image} source={{uri: `data:image/gif;base64,${this.base64}`}}>
 							<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
 								<Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
 							</TouchableOpacity>
 						</ImageBackground>
 						<View style={styles.allergy}>
-							<Text style={styles.conclusion}>
+							<Text style={{fontSize: 45, fontWeight: 'bold', marginTop: 30, marginBottom: 20, width: 300, color: conclusionColor}}>
 								{conclusion} 
 							</Text>
 							<FlatList
 							data = {this.state.found}
 							ListHeaderComponent={() => (
-								<Text style={styles.allergy_header}>Allergens: {"\n"}</Text>
+								<Text style={styles.allergy_header}>Allergens: </Text>
 							)}
 							ListEmptyComponent={() => (
 								<Text style={styles.item}>None{"\n"}</Text>
@@ -87,27 +90,23 @@ const styles = StyleSheet.create({
 	},
 	allergy:{
 		flex: 1.75,
-		marginLeft: 50
+		marginLeft: 65
 	},
 	background:{
 		flex: 1
 	},
-	conclusion:{
-		fontSize: 45,
-		fontWeight: 'bold',
-		marginTop: 30,
-		marginBottom: 10,
-		width: 300
-	},
 	allergy_header:{
 		fontSize: 25,
 		flex: 1,
-		flexDirection: 'column'
+		flexDirection: 'column',
+		color: 'white',
+		fontWeight: 'bold'
 	},
 	item:{
 	    padding: 10,
 	    fontSize: 18,
-	    height: 44
+	    height: 44,
+	    color: 'white'
   	},
   	button:{
   		marginTop: 40,
