@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome } from '@expo/vector-icons';
 
+
 export default class Capture extends React.Component {
   state = {
     hasPermission: null,
@@ -17,26 +18,30 @@ export default class Capture extends React.Component {
 
   takePicture = async () => {
     if (this.camera) {
-      Alert.alert("Taking Picture!");
-      let photo = await this.camera.takePictureAsync();
-      console.log(photo);
+      let photo = await this.camera.takePictureAsync({base64: true});
+      console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
 
-      var oReq = new XMLHttpRequest();
-      oReq.open("GET", photo.uri, true);
-      oReq.responseType = "blob";
-
-      oReq.onload = function(oEvent) {
-        var blob = oReq.response;
-
-        // var reader = new FileReader();
-        // reader.readAsDataURL(blob); 
-        // reader.onloadend = function() {
-        //     var base64data = reader.result;                
-        //     console.log("Base 64: " + base64data);
-        // }
-      };
-
-      oReq.send();
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({base64: photo.base64})
+        // body: formData
+    };
+    fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
+        .then(response =>
+        {
+            response.json()
+                .then(json => {
+                    console.log("Success! " + JSON.stringify(json));
+                    Alert.alert("Response: " + JSON.stringify(json));
+                })
+                .catch(err => {
+                    Alert.alert("Error: " + err);
+                });
+        })
+        .catch(err => Alert.alert("Error: " + err));
     }
   }
 
