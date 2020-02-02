@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
+import { FontAwesome } from '@expo/vector-icons';
 
-
-export default class Camera extends React.Component {
+export default class Capture extends React.Component {
   state = {
     hasPermission: null,
     type: Camera.Constants.Type.back,
@@ -52,9 +52,9 @@ export default class Camera extends React.Component {
             <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}>
             </Camera>
             <Button
-              title="Press me"
-              color="#f194ff"
-              onPress={this.takePicture}
+                title="Press me"
+                color="#f194ff"
+                onPress={this.takePicture}
             />
         </View>
       );
@@ -68,5 +68,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  Button: {
+      alignItems: 'center'
   },
 });

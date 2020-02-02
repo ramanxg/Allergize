@@ -1,8 +1,10 @@
 import React from 'react';
-import Camera from "./Components/Camera"
+import Capture from "./Components/Camera";
+import Edit from "./Components/EditAllergies";
+import Pick from './Components/PickAllergies';
 
 export default class App extends React.Component {
   render(){
-    return (<Camera></Camera>);
+    return <Pick/>;
   }
 }
