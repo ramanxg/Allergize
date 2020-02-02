@@ -98,7 +98,11 @@ export default class Allergy extends React.Component {
             />
             <View flexDirection='row' justifyContent='space-between' alignItems='center'>
                 <TextInput style={styles.text}
+<<<<<<< HEAD
                     placeholder = "Enter the foods that you're allergic to"
+=======
+                    placeholder = 'Enter your allergies'
+>>>>>>> fcd4b3e28b2166ca14f13684fd84a5e1186945af
                     onChangeText = {text => (this.setState({'input': text}))}
                     value={this.state.input}
                 />

@@ -36,8 +36,8 @@ class HomeScreen extends React.Component {
   	const {navigate} = this.props.navigation;
     return (
     	<>
-	    	{ !onCamera && <LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,160,133,100)']} style={{alignItems: 'center', flex: 1}}>
-	    	    <ImageBackground style={styles.background} source={require('./images/splotches.png')}>
+	    	{ !onCamera && <LinearGradient colors={['rgba(255,240,69,100)', 'rgba(255,110,133,100)']} style={{alignItems: 'center', flex: 1}}>
+	    	    <ImageBackground style={styles.background} source={require('./images/splotches_2.png')}>
 			    	<View style={styles.container}>
 			    		<TouchableOpacity style={styles.mainButton} onPress={() => this.setState({onCamera:true})}>
 			    			<Text style={styles.buttonText}>
@@ -45,7 +45,7 @@ class HomeScreen extends React.Component {
 			    			</Text>
 			    		</TouchableOpacity>
 			    		<TouchableOpacity style={styles.button} onPress={() => navigate('Profile')}>
-			    			<Ionicons name='md-person' size={50} color='rgba(255,255,255,0.65)'/>
+			    			<Ionicons name='md-person' size={50} color='rgba(255,255,255,0.8)'/>
 			    		</TouchableOpacity>
 			    	</View>
 		    	</ImageBackground>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 	buttonText:{
 		fontSize: 40,
 		fontWeight: 'bold',
-		color: 'rgba(255,255,255,0.65)'
+		color: 'rgba(255,255,255,0.8)'
 
 	},
 	logoIcon:{
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderWidth: 10,
-		borderColor: 'rgba(255,255,255,0.35)'
+		borderColor: 'rgba(255,255,255,0.5)'
 	},
 	button:{
 		borderRadius: 50,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderWidth: 7,
-		borderColor: 'rgba(255,255,255,0.35)'
+		borderColor: 'rgba(255,255,255,0.5)'
 	},
 	ImageIconStyle:{
 		padding: 10,

@@ -33,6 +33,7 @@ export default class Capture extends React.Component {
   }
 
   takePicture = async () => {
+    this.setState({ pictureTaken:true });
     const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
@@ -77,6 +78,7 @@ export default class Capture extends React.Component {
       console.log("pictureTaken:" + pictureTaken);
       return (
         <View style={{ flex: 1}}>
+<<<<<<< HEAD
             {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>}
             {!pictureTaken && <><Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
             <View>
@@ -91,6 +93,18 @@ export default class Capture extends React.Component {
                     />  
                 </TouchableOpacity>
             </View></>}
+=======
+            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
+            <View style={{flex: 0.1, backgroundColor: 'black', alignItems: 'center', justifyContent: 'center'}}>
+              {pictureTaken && <Text style={{fontSize: 20, color: 'white',}}>Processing Image...</Text>}
+              {!pictureTaken && <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
+                  <Icon
+                      type='font-awesome'
+                      name='camera'
+                  />  
+              </TouchableOpacity>}
+            </View>
+>>>>>>> fcd4b3e28b2166ca14f13684fd84a5e1186945af
         </View>
       );
     }
