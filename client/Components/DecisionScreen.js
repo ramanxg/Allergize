@@ -7,8 +7,9 @@ export default class DecisionScreen extends React.Component{
 
 	constructor (props) {
 		super(props);
-		Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
+		// Alert.alert("Results: " + this.props.navigation.getParam('allergens', 'failed'));
 		this.allergens = this.props.navigation.getParam('allergens', 'failed');
+		this.base64 = this.props.navigation.state.params.base64;
 		console.log(this.allergens)
 		this.state = {
 			found: [],
@@ -22,14 +23,14 @@ export default class DecisionScreen extends React.Component{
             const value = await AsyncStorage.getItem('@allergies')
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
-			// let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
-			let found = this.allergens;
+			console.log(this.allergens)
+			let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
 			for (let i = 0; i < found.length; i++) {
                 found[i] = {"name": found[i]};
-            }
+			}
             this.setState({
 				found: found,
-				edible: allergy_list.length == 0
+				edible: found.length == 0
             });
         } catch(e) {
             console.log("Error", e);
@@ -41,35 +42,39 @@ export default class DecisionScreen extends React.Component{
 		let conclusion;
 
 		if (this.state.edible) {
-			conclusion = "No allergies found! Eat up!";
+			conclusion = "SAFE TO EAT!";
 		} else {
-			conclusion = "You are allergic to these!";
+			conclusion = "DO NOT EAT!";
 		}
+		/*source={require('../images/food_sample.jpg')}>} */
 		return(
-				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
-					<ImageBackground style={styles.food_image} source={require('../images/food_sample.jpg')}>
-						<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
-							<Ionicons name='ios-arrow-back' size={50} color='black'/>
-						</TouchableOpacity>
-					</ImageBackground>
-					<View style={styles.allergy}>
-						<FlatList
-						data = {this.state.found}
-						ListHeaderComponent={() => (
-							<Text style={styles.allergy_header}>Allergens: </Text>
-						)}
-						ListFooterComponent={() => (
-							<Text style={styles.allergy_footer}>
+				<LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,153,133,100)']} style={{alignItems: 'center', flex: 1}}>
+					<ImageBackground style={styles.background} source={require('../images/splotches_1.png')}>
+						<ImageBackground style={styles.food_image} source={{uri: `data:image/gif;base64,${this.base64}`}}>
+							<TouchableOpacity style={styles.button} onPress={() => navigate('Home')}>
+								<Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+							</TouchableOpacity>
+						</ImageBackground>
+						<View style={styles.allergy}>
+							<Text style={styles.conclusion}>
 								{conclusion} 
 							</Text>
-						)}
-						keyExtractor={item => item.name}
-						renderItem={({ item, index, separators }) => (
-							<View style={styles.item}>
-								<Text style={styles.title}>{item.name}</Text>
-							</View>
-						)}></FlatList>
-					</View>
+							<FlatList
+							data = {this.state.found}
+							ListHeaderComponent={() => (
+								<Text style={styles.allergy_header}>Allergens: {"\n"}</Text>
+							)}
+							ListEmptyComponent={() => (
+								<Text style={styles.item}>None{"\n"}</Text>
+							)}
+							keyExtractor={item => item.name}
+							renderItem={({ item, index, separators }) => (
+								<View style={styles.item}>
+									<Text style={styles.title}>{item.name}</Text>
+								</View>
+							)}></FlatList>
+						</View>
+					</ImageBackground>
 				</LinearGradient>
 		);
 	}
@@ -81,12 +86,18 @@ const styles = StyleSheet.create({
 		width: 420
 	},
 	allergy:{
-		flex: 1.75
+		flex: 1.75,
+		marginLeft: 50
 	},
-	allergy_footer:{
-		fontSize: 35,
-		flexDirection: 'column',
+	background:{
 		flex: 1
+	},
+	conclusion:{
+		fontSize: 45,
+		fontWeight: 'bold',
+		marginTop: 30,
+		marginBottom: 10,
+		width: 300
 	},
 	allergy_header:{
 		fontSize: 25,
@@ -104,10 +115,10 @@ const styles = StyleSheet.create({
   		borderRadius: 50,
 		width: 50,
 		height: 50,
-		elevation: 5,
-		backgroundColor: 'rgba(255,197,110,100)',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderWidth: 5,
+		borderColor: 'rgba(255,255,255,0.55)'
 	  },
 	title:{
 		fontSize:20,
