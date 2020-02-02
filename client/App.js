@@ -22,8 +22,8 @@ export default class App extends React.Component {
 
   render(){
     return (
-      // <Camera></Camera>
-        <Allergy></Allergy>
+      <Camera></Camera>
+        // <Allergy></Allergy>
     );
   }
 }

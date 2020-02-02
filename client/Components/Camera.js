@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome } from '@expo/vector-icons';
+import {Button, Icon} from 'react-native-elements';
+
 
 export default class Capture extends React.Component {
   state = {
@@ -17,26 +19,30 @@ export default class Capture extends React.Component {
 
   takePicture = async () => {
     if (this.camera) {
-      Alert.alert("Taking Picture!");
-      let photo = await this.camera.takePictureAsync();
-      console.log(photo);
+      let photo = await this.camera.takePictureAsync({base64: true});
+      console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
 
-      var oReq = new XMLHttpRequest();
-      oReq.open("GET", photo.uri, true);
-      oReq.responseType = "blob";
-
-      oReq.onload = function(oEvent) {
-        var blob = oReq.response;
-
-        // var reader = new FileReader();
-        // reader.readAsDataURL(blob); 
-        // reader.onloadend = function() {
-        //     var base64data = reader.result;                
-        //     console.log("Base 64: " + base64data);
-        // }
-      };
-
-      oReq.send();
+    let fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({base64: photo.base64})
+        // body: formData
+    };
+    fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
+        .then(response =>
+        {
+            response.json()
+                .then(json => {
+                    console.log("Success! " + JSON.stringify(json));
+                    Alert.alert("Response: " + JSON.stringify(json));
+                })
+                .catch(err => {
+                    Alert.alert("Error: " + err);
+                });
+        })
+        .catch(err => Alert.alert("Error: " + err));
     }
   }
 
@@ -48,14 +54,17 @@ export default class Capture extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
-            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}>
-            </Camera>
-            <Button
-                title="Press me"
-                color="#f194ff"
-                onPress={this.takePicture}
-            />
+        <View style={{ flex: 1}}>
+            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
+
+            <View style={{backgroundColor: 'black', alignItems: 'center'}}>
+                <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
+                    <Icon
+                        type='font-awesome'
+                        name='camera'
+                    />  
+                </TouchableOpacity>
+            </View>
         </View>
       );
     }
@@ -70,6 +79,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   Button: {
-      alignItems: 'center'
+      alignItems: 'center',
+  },
+  takePictureButton: {
+    width: 75,
+    height: 75,
+    borderWidth: 2,
+    borderRadius: 150,
+    backgroundColor: 'white',
+    justifyContent: 'center',
   },
 });
