@@ -1,7 +1,7 @@
 import React from 'react';
 import Camera from "./Components/Camera"
 import DecisionScreen from "./Components/DecisionScreen"
-import { Text, StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome, Foundation } from '@expo/vector-icons';
 import {createAppContainer} from 'react-navigation';
@@ -40,16 +40,19 @@ class HomeScreen extends React.Component {
   	const {navigate} = this.props.navigation;
     return (
     	<>
-	    	{ !onCamera && <LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,172,128,100)']} style={{alignItems: 'center', flex: 1}}>
-		    	<View style={styles.container}>
-		    		<Text style={styles.text}>Tap to Allergize</Text>
-		    		<TouchableOpacity style={styles.mainButton} onPress={() => this.setState({onCamera:true})}>
-		    			<Image style={styles.logoIcon} source={require('./images/logo.png')}/>
-		    		</TouchableOpacity>
-		    		<TouchableOpacity style={styles.button} onPress={() => navigate('Profile')}>
-		    			<Foundation name='pencil' size={50} color='black'/>
-		    		</TouchableOpacity>
-		    	</View>
+	    	{ !onCamera && <LinearGradient colors={['rgba(255,190,69,100)', 'rgba(255,160,133,100)']} style={{alignItems: 'center', flex: 1}}>
+	    	    <ImageBackground style={styles.background} source={require('./images/splotches.png')}>
+			    	<View style={styles.container}>
+			    		<TouchableOpacity style={styles.mainButton} onPress={() => this.setState({onCamera:true})}>
+			    			<Text style={styles.buttonText}>
+			    				ALLERGIZE!
+			    			</Text>
+			    		</TouchableOpacity>
+			    		<TouchableOpacity style={styles.button} onPress={() => navigate('Profile')}>
+			    			<Foundation name='pencil' size={50} color='rgba(255,255,255,0.5)'/>
+			    		</TouchableOpacity>
+			    	</View>
+		    	</ImageBackground>
 	    	</LinearGradient>
 	    	}
 	    	{onCamera && <Capture navigation={this.props.navigation} showHome={this.showHome}/>}
@@ -65,6 +68,16 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
+	background:{
+		flex: 1,
+		width: 450
+	},
+	buttonText:{
+		fontSize: 40,
+		fontWeight: 'bold',
+		color: 'rgba(255,255,255,0.5)'
+
+	},
 	logoIcon:{
 		height: 250,
 		width: 250
@@ -78,27 +91,25 @@ const styles = StyleSheet.create({
 	},
 	mainButton:{
 		borderRadius: 500,
-		backgroundColor: 'rgba(0,0,0,100)',
 		marginTop: 50,
 		width: 275,
 		height: 275,
-		elevation: 15,
-		backgroundColor: 'rgba(255,197,110,100)',
 		marginTop: 200,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderWidth: 10,
+		borderColor: 'rgba(255,255,255,0.5)'
 	},
 	button:{
 		borderRadius: 50,
-		backgroundColor: 'rgba(0,0,0,100)',
 		marginTop: 50,
-		width: 75,
-		height: 75,
-		elevation: 10,
-		backgroundColor: 'rgba(255,197,110,100)',
+		width: 80,
+		height: 80,
 		marginTop: 100,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderWidth: 7,
+		borderColor: 'rgba(255,255,255,0.5)'
 	},
 	ImageIconStyle:{
 		padding: 10,
