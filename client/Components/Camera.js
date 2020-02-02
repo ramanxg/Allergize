@@ -78,7 +78,7 @@ export default class Capture extends React.Component {
       console.log("pictureTaken:" + pictureTaken);
       return (
         <View style={{ flex: 1}}>
-            {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>}
+            {/* {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>} */}
             {!pictureTaken && <><Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
             <View >
                 <TouchableOpacity style={styles.button} onPress={this.backPress}>
