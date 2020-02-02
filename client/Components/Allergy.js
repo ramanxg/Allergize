@@ -1,9 +1,10 @@
 import React from 'react';
-import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity} from "react-native";
+import {FlatList, View, StyleSheet, Text, AsyncStorage, TouchableOpacity, ImageBackground} from "react-native";
 import Constants from 'expo-constants';
 import {Button, Icon, Header} from 'react-native-elements';
 import {Ionicons} from 'react-native-vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default class Allergy extends React.Component {
     constructor (props) {
@@ -89,37 +90,42 @@ export default class Allergy extends React.Component {
   render(){
     const {navigate} = this.props.navigation;
     return ( 
-        <View style = {styles.container}>
-            <Header
-                leftComponent={<TouchableOpacity style={styles.backButton} onPress={() => navigate('Home')}>
-                                    <Ionicons name='ios-arrow-back' size={50} color='black'/>
-                                </TouchableOpacity>}
-                centerComponent={{text: 'Saved Allergies', style:{fontSize: 32, justifyContent: 'center'}}}
-            />
-            <View flexDirection='row' justifyContent='space-between' alignItems='center'>
-                <TextInput style={styles.text}
-                    placeholder = 'Enter your allergies'
-                    onChangeText = {text => (this.setState({'input': text}))}
-                    value={this.state.input}
-                />
-                <Button style= {{paddingRight: 30}} title='+' onPress={this.addAllergy}/>
-            </View>
-                
-            {/* <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button> */}
-            <FlatList 
-                data = {this.state.allergies}
-                keyExtractor={item => item.name}
-                renderItem={({ item, index, separators }) => (
-                    <View style={styles.item}>
-                        <Text style={styles.title}>{item.name}</Text>
-                        <TouchableOpacity style = {styles.closeButton} onPress = {() => {this.removeAllergy(item.name)}}>
-                            <Text style = {styles.closeText}>X</Text>
-                        </TouchableOpacity>
+        <LinearGradient colors={['rgba(255,240,69,100)', 'rgba(255,110,133,100)']} style={{alignItems: 'center', flex: 1}}>
+            <ImageBackground style={styles.background} source={require('../images/splotches_2.png')}>
+                <View style = {styles.container}>
+                    <Header backgroundColor='rgba(255,169,82,100)'
+                        leftComponent={<TouchableOpacity style={styles.backButton} onPress={() => navigate('Home')}>
+                                            <Ionicons name='md-arrow-back' size={50} color='rgba(255,255,255,0.85)'/>
+                                        </TouchableOpacity>}
+                        centerComponent={{text: 'Saved Allergies', style:{fontSize: 32, justifyContent: 'center', fontWeight: 'bold', color:'rgba(255,255,255,1)', marginTop: -30}}}
+                    />
+                    <View flexDirection='row' justifyContent='space-between' alignItems='center'>
+                        <TextInput style={styles.text}
+                            placeholder = 'Enter your allergies'
+                            placeholderTextColor = 'rgba(255,255,255,100)'
+                            onChangeText = {text => (this.setState({'input': text}))}
+                            value={this.state.input}
+                        />
+                        <Button style= {{paddingRight: 30}} title='+' onPress={this.addAllergy}/>
                     </View>
-                )}
-                
-                ></FlatList>
-        </View>
+                        
+                    {/* <Button style={{margin: 35}} onPress={() => {this.addAllergy(["eggs", "milk", "wheat"])}} title="Store"></Button> */}
+                    <FlatList 
+                        data = {this.state.allergies}
+                        keyExtractor={item => item.name}
+                        renderItem={({ item, index, separators }) => (
+                            <View style={styles.item}>
+                                <Text style={styles.title}>{item.name}</Text>
+                                <TouchableOpacity style = {styles.closeButton} onPress = {() => {this.removeAllergy(item.name)}}>
+                                    <Text style = {styles.closeText}>X</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                        
+                        ></FlatList>
+                </View>
+            </ImageBackground>
+        </LinearGradient>
     );
   }
 }
@@ -128,11 +134,14 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       marginTop: Constants.statusBarHeight,
-    //   backgroundColor: 'yellow'
+    },
+    background:{
+        flex: 1,
+        width: 420
     },
     text: {
         width: '80%',
-        borderBottomColor: 'black',
+        borderBottomColor: 'rgba(255,255,255,0.5)',
         borderBottomWidth: 1,
         padding: 5,
         margin: 20,
@@ -142,18 +151,21 @@ const styles = StyleSheet.create({
         flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: '#7aaaf5',
+      backgroundColor: 'rgba(255,150,105,100)',
       padding: 10,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
+      elevation: 4
     },
     backButton: {
         marginHorizontal: 16,
+        marginTop: -25
     },
     title: {
         // Styles the text of the item
-      fontSize: 32,
+      fontSize: 25,
+      color: 'rgba(255,255,255,0.75)'
 
     },
     closeButton: {
@@ -165,7 +177,7 @@ const styles = StyleSheet.create({
         // Styles the text 'X'
         fontSize: 25,
         fontWeight: "bold",
-        color: 'red',
+        color: 'rgba(255,80,80,100)',
         textAlign: 'right',
         paddingTop: 3,
         paddingRight: 5,
