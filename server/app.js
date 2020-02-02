@@ -4,26 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// firebase configuration
-var firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/firestore");
-
-var firebaseConfig = {
-  apiKey: "AIzaSyAnA5BzfPyx1sVHCj7TgYVwVdXU33DCs2c",
-  authDomain: "nonut-52bd9.firebaseapp.com",
-  databaseURL: "https://nonut-52bd9.firebaseio.com",
-  projectId: "nonut-52bd9",
-  storageBucket: "nonut-52bd9.appspot.com",
-  messagingSenderId: "186976534326",
-  appId: "1:186976534326:web:2399c9f6e0afad009dfd97"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var allergyRouter = require('./routes/allergies');
 
 var app = express();
@@ -40,7 +21,6 @@ app.use(express.urlencoded({limit: '50mb'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/allergies', allergyRouter);
 
 

@@ -4,7 +4,18 @@ const Clarifai = require('clarifai');
 const fetch = require('node-fetch');
 
 const app = new Clarifai.App({apiKey: 'f61f8a17d8ff4eadac96e684a2d6fe9f'});
-let apiKey = 'd734ac52a83e44a9bf4d6b99186c1cbd';
+let apiKey = '3d524fa5472c4c4585905d82fd4a3f52';
+let backupKeys = ['8904b7f5eed5420f872c3d74012971fd',
+                '7229c13911f748838ebaa5b8d073b8d0',
+                'bc55632df85a4e7294581e8967303fe2',
+                'fe8fbdb3515441049bb6383daa73fdbb',
+                '8933e9937a184ea1ad1803fce83cf7e9',
+                'bc6cb3ebf8a74d2493e9961d871dba38',
+                'b30956a5783a49ad885f76c1485d62cb',
+                '6bd212001b6f4a839aa2fd085823244f',
+                'b207eb7d65ba4509a1e2a1cfe6d0d50d',
+                '5d0d53ed87024b0d82bde9fa1f69ac1f'];
+let backupIndex = 0;
 // how confident to include
 const CONFIDENCE_THRESHOLD = .75;
 // which # lowest recipes should be searched
@@ -80,7 +91,7 @@ router.put('/getFoods', function(req, res, next) {
         },
         function(err) {
             console.log("Failure! " + err);
-            res.json({result: "Server Error: " + err});
+            res.json({result: "Please take the picture farther back!"});
         }
     );
 });
@@ -96,12 +107,22 @@ async function findRecipes(foodItem) {
     let searchUrl = `https://api.spoonacular.com/recipes/search?apiKey=${apiKey}&query=${foodItem}`;
     let response = await fetch(searchUrl);
     let json = await response.json();
-    console.log("Recipe JSON: ", JSON.stringify(json));
-    let ids = [];
-    for (let i = 0; i < SAMPLE && i < json.results.length; i++) {
-        ids.push(json.results[i].id);
+    if(json.results)
+    {
+        console.log("Recipe JSON: ", JSON.stringify(json));
+        let ids = [];
+        for (let i = 0; i < SAMPLE && i < json.results.length; i++) {
+            ids.push(json.results[i].id);
+        }
+        return {ids: ids, numRecipes: json.totalResults};
     }
-    return {ids: ids, numRecipes: json.totalResults};
+    else {
+        console.log("Key Expired: Using ",backupIndex);
+        backupIndex++;
+        backupIndex %= backupKeys.length;
+        apiKey = backupKeys[backupIndex];
+        return await findRecipes(foodItem);
+    }
 }
 
 router.get("/findIngredients", function(req, res, next) {
@@ -114,12 +135,22 @@ async function findIngredients(foodID) {
     let ingredientUrl = `https://api.spoonacular.com/recipes/${foodID}/information/?apiKey=${apiKey}`;
     let response = await fetch(ingredientUrl);
     let json = await response.json();
-    let ingredientJson = json.extendedIngredients;
-    let ingredients = [];
-    ingredientJson.forEach(item => {
-       ingredients.push(item.name);
-    });
-    return ingredients;
+    if(json.extendedIngredients)
+    {
+        let ingredientJson = json.extendedIngredients;
+        let ingredients = [];
+        ingredientJson.forEach(item => {
+            ingredients.push(item.name);
+        });
+        return ingredients;
+    }
+    else {
+        console.log("Key Expired: Using ",backupIndex);
+        backupIndex++;
+        backupIndex %= backupKeys.length;
+        apiKey = backupKeys[backupIndex];
+        return await findIngredients(foodID);
+    }
 }
 
 router.get("/testList", function(req, res, next){

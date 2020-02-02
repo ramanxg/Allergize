@@ -33,12 +33,14 @@ export default class Capture extends React.Component {
   }
 
   takePicture = async () => {
-    const {navigate} = this.props.navigation;
+      let con = this;
+      setTimeout(function() {con.setState({ pictureTaken:true });}, 100);
+
+      const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
-      console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
-      
-    this.setState({ pictureTaken:true });
+
+        console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
     let fetchOptions = {
         method: 'PUT',
         headers: {
@@ -54,8 +56,15 @@ export default class Capture extends React.Component {
                 .then(json => {
                     console.log("Success! " + JSON.stringify(json));
                     // Alert.alert("Response: " + JSON.stringify(json));
-                    this.props.showHome();
-                    navigate('Decision', { allergens: json.result, base64: photo.base64 });
+                    if(typeof json.result  == 'string')
+                    {
+                        Alert.alert(json.result);
+                        this.props.showHome();
+                    }
+                    else {
+                        this.props.showHome();
+                        navigate('Decision', { allergens: json.result, base64: photo.base64 });
+                    }
                 })
                 .catch(err => {
                     Alert.alert("Error: " + err);
@@ -89,7 +98,7 @@ export default class Capture extends React.Component {
                         type='font-awesome'
                         name='camera'
                         color='rgba(255,255,255,0.8)'
-                    />  
+                    />
                 </TouchableOpacity></>}
               {pictureTaken && <Text style={{backgroundColor: 'black', color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10}}>Processing Image...</Text>}
             </View>
