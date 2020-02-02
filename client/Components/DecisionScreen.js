@@ -24,9 +24,15 @@ export default class DecisionScreen extends React.Component{
             let allergy_list = JSON.parse(value).allergy_list
 			console.log(allergy_list);
 			console.log(this.allergens)
-			let found = allergy_list.filter(value => -1 !== this.allergens.indexOf(value))
-			for (let i = 0; i < found.length; i++) {
-                found[i] = {"name": found[i]};
+			let found = []
+			for (let j = 0; j < allergy_list.length; j++) {
+				for (let i = 0; i < this.allergens.length; i++) {
+					let temp = {"name": allergy_list[j]};
+					if (this.allergens[i].includes(allergy_list[j]) && !found.includes(temp)) {
+						found.push(temp);
+						break;
+					}
+				}
 			}
             this.setState({
 				found: found,
