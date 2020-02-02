@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Alert, TouchableOpacity, ImageBackground} from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome } from '@expo/vector-icons';
@@ -13,8 +13,10 @@ export default class Capture extends React.Component {
   {
     super(props);
     this.state = {
-      hasPermission: null,
+      hasPermission: true,
       type: Camera.Constants.Type.back,
+      pictureTaken: false,
+      picture:""
     };
   }
 
@@ -28,45 +30,53 @@ export default class Capture extends React.Component {
     const {navigate} = this.props.navigation;
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
-      this.camera.pausePreview()
+
+      
+
+      this.setState({picture:photo.base64, pictureTaken:true});
       console.log("Photo: " + JSON.stringify(photo.base64.slice(0, 100)));
-    let fetchOptions = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({base64: photo.base64})
-        // body: formData
-    };
-    fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
-        .then(response =>
-        {
-            response.json()
-                .then(json => {
-                    console.log("Success! " + JSON.stringify(json));
-                    Alert.alert("Response: " + JSON.stringify(json));
-                    this.props.showHome();
-                    navigate('Decision', { allergens: json.result, base64: photo.base64 });
-                })
-                .catch(err => {
-                    Alert.alert("Error: " + err);
-                });
-        })
-        .catch(err => Alert.alert("Error: " + err));
-    }
+
+      let fetchOptions = {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({base64: photo.base64})
+          // body: formData
+      };
+      fetch('https://hackuci2020.herokuapp.com/allergies/getFoods', fetchOptions)
+          .then(response =>
+          {
+              response.json()
+                  .then(json => {
+                      console.log("Success! " + JSON.stringify(json));
+                      Alert.alert("Response: " + JSON.stringify(json));
+                      this.props.showHome();
+                      navigate('Decision', { allergens: json.result, base64: photo.base64 });
+                  })
+                  .catch(err => {
+                      Alert.alert("Error: " + err);
+                  });
+          })
+          .catch(err => Alert.alert("Error: " + err));
+      }
   }
 
   render(){
-    const { hasPermission } = this.state
+    const { hasPermission } = this.state.hasPermission;
+    const pictureTaken = this.state.pictureTaken;
+    let picture = this.state.picture;
+    console.log("Picture: ", picture);
     if (hasPermission === null) {
       return <View />;
     } else if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     } else {
+      console.log("pictureTkaen:" + pictureTaken);
       return (
         <View style={{ flex: 1}}>
-            <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
-
+            {pictureTaken && <ImageBackground style = {{flex: 1}} source={{uri: `data:image/gif;base64,${picture}`}}></ImageBackground>}
+            {!pictureTaken && <><Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ref => {this.camera = ref;}}></Camera>
             <View style={{backgroundColor: 'black', alignItems: 'center'}}>
                 <TouchableOpacity style={styles.takePictureButton} onPress={this.takePicture}>
                     <Icon
@@ -74,7 +84,7 @@ export default class Capture extends React.Component {
                         name='camera'
                     />  
                 </TouchableOpacity>
-            </View>
+            </View></>}
         </View>
       );
     }
