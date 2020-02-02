@@ -3,7 +3,7 @@ var router = express.Router();
 const Clarifai = require('clarifai');
 const fetch = require('node-fetch');
 
-const app = new Clarifai.App({apiKey: 'f61f8a17d8ff4eadac96e684a2d6fe9f'});
+const app = new Clarifai.App({apiKey: '805b38623dc04964bdb20c970711fe5f'});
 let apiKey = '3d524fa5472c4c4585905d82fd4a3f52';
 let backupKeys = ['8904b7f5eed5420f872c3d74012971fd',
                 '7229c13911f748838ebaa5b8d073b8d0',

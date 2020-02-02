@@ -34,7 +34,7 @@ export default class Capture extends React.Component {
 
   takePicture = async () => {
       let con = this;
-      setTimeout(function() {con.setState({ pictureTaken:true });}, 100);
+      setTimeout(function() {con.setState({ pictureTaken:true });}, 1000);
 
       const {navigate} = this.props.navigation;
     if (this.camera) {
