@@ -3,16 +3,6 @@ import {FlatList, View, StyleSheet, Text, Button, AsyncStorage} from "react-nati
 import Constants from 'expo-constants';
 
 
-
-// function Item({ allergy }) {
-//     return (
-//       <View style={styles.item}>
-//         <Text style={styles.title}>{allergy}</Text>
-//         <Button style = {styles.button} title='X' onPress = {() => {this.removeAllergy(allergy)}}></Button>
-//       </View>
-//     );
-//   }
-
 export default class Allergy extends React.Component {
 
 
