@@ -1,4 +1,4 @@
-"# HackUCI" 
+# HackUCI
 
 Receiving Changes from Git:
 1. cd to project root
