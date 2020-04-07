@@ -22,3 +22,5 @@ How To Run Server:
 
 Frontend Framework: React Native
 Expo Cli: https://www.npmjs.com/package/expo-cli
+
+Created at HackUCI 2020
